@@ -1,0 +1,31 @@
+{
+  "name": "<%= packageName%>",
+  "version": "<%= version%>",
+  "description": "A smart <%= appname%> ui component for react app",
+  "keywords": [
+    "react",
+    "react-smart-component",
+    "react-<%= appname%>",
+    "<%= appname%>"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "bugs": {
+    "url": "<%= repo %>/issues"
+  },
+  "homepage": "<%= repo %>#readme",
+  "author": "<%= author%>",
+  "repository": {
+    "type": "git",
+    "url": "<%= homepage%>.git"
+  },
+  "repository": "react-smart-component/<%= appname%>",
+  "bugs": "<%= repo_url%>/issues",
+  "files": [
+    "lib",
+    "assets/*.css"
+  ],
+  "license": "MIT",
+  "main": "./lib/index"
+}
