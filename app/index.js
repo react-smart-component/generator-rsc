@@ -4,8 +4,7 @@
  */
 
 const Generator = require('yeoman-generator');
-const Path = require('path');
-const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const camelCase = function(name) {
     return name.replace(/-\w/g, function (m) {
@@ -17,27 +16,66 @@ module.exports = class extends Generator {
     // 构造
     constructor(args, opts) {
         super(args, opts);
-        this.option('version', {type: String, defaults: '1.0.0'});
-        this.option('author', {type: String, defaults: ''});
-        this.option('pkg', {type: String, defaults: ''});
-        this.option('repo', {type: String, defaults: ''});
-    }
 
-    welcome() {
-        this.appname = this.appname.replace(/\s/g, '-');
-        this.AppName = `${this.appname.charAt(0).toUpperCase()}${camelCase(this.appname.slice(1))}`;
-        this.log(`welcome to generator-rsc: ${this.appname}`);
-        this.repo = this.options.repo || `https://github.com/react-rsc-component/${this.appname}`;
-        this.version = this.options.version;
-        this.author = this.options.author;
-        this.packageName = this.options.pkg || ('rsc-' + this.appname);
+        // console.log('opts = ', opts);
+
+        this.option('version', {
+            desc: 'version of package',
+            type: String,
+            defaults: '0.0.1',
+        });
+
+        this.option('author', {
+            desc: 'author of package',
+            type: String,
+            default: '',
+        });
+
+        this.option('pkgName', {
+            desc: 'name of package',
+            type: String,
+            default: '',
+        });
     }
 
     write() {
-        this.fs.copy(
-            this.templatePath(''),
-            this.destinationPath('')
-        );
+        this._copy();
+        this._write();
+        this._mkdir();
+    }
+
+    _copy() {
+        const folders = [
+            './src',
+        ];
+        folders.forEach((folder) => {
+            this.fs.copy(
+                this.templatePath(folder),
+                this.destinationPath(folder)
+            );
+        });
+    }
+
+    _write() {
+        const files = [
+            'CHANGELOG.md',
+            'README.md',
+            'gitignore',
+            'index.js',
+            'npmrc',
+            'travis.yml',
+            'package.json',
+        ];
+        files.forEach((file) => {
+            this.fs.copy(
+                this.templatePath(file),
+                this.destinationPath(file)
+            );
+        });
+    }
+
+    _mkdir() {
+        mkdirp('__tests__');
     }
 
     end() {
