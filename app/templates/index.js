@@ -1,2 +1,1 @@
-import <%= AppName%> from './src/';
-export default <%= AppName%>;
+export { default } from './src/';

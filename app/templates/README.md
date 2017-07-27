@@ -1,2 +1,2 @@
-# <%= packageName%>
+# <%=_packageName%>
 ---

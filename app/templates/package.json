@@ -1,30 +1,30 @@
 {
-  "name": "ressss",
-  "version": "<%=version%>",
-  "description": "A smart <%=appname%> ui component for react app",
-  "keywords": [
-    "react",
-    "react-smart-component",
-    "react-<%=appname%>",
-    "<%=appname%>"
-  ],
-  "engines": {
-    "node": ">=6"
-  },
-  "bugs": {
-    "url": "<%=repo%>/issues"
-  },
-  "homepage": "<%=repo%>#readme",
-  "author": "<%=author%>",
-  "repository": {
-    "type": "git",
-    "url": "<%=homepage%>.git"
-  },
-  "repository": "react-smart-component/<%=appname%>",
-  "bugs": "<%=repo_url%>/issues",
-  "files": [
-    "lib"
-  ],
-  "license": "MIT",
-  "main": "./lib/index"
+    "name": "<%=_packageName%>",
+    "version": "<%=_version%>",
+    "description": "A smart <%=appname%> ui component for react app",
+    "keywords": [
+        "react",
+        "react-smart-component",
+        "react-<%=appname%>",
+        "<%=appname%>"
+    ],
+    "engines": {
+        "node": ">=6"
+    },
+    "bugs": {
+        "url": "<%=_repo%>/issues"
+    },
+    "homepage": "<%=_homepage%>",
+    "author": "<%=_author%>",
+    "repository": {
+        "type": "git",
+        "url": "<%=_repo%>.git"
+    },
+    "bugs": "<%=_repo%>/issues",
+    "files": [
+        "lib",
+        "assets/*.css"
+    ],
+    "license": "MIT",
+    "main": "./lib/index"
 }

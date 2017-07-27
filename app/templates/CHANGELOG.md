@@ -1,1 +1,1 @@
-# <%= version%>
+# <%=_version%>
