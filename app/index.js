@@ -117,9 +117,9 @@ module.exports = class extends Generator {
 
     _mkdir() {
         mkdirp('__tests__');
-        mkdirp('__demos__');
+        mkdirp('exmaples');
         this.log('    mkdir __tests__');
-        this.log('    mkdir __demos__');
+        this.log('    mkdir exmaples');
     }
 
     end() {
