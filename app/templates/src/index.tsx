@@ -1,1 +1,2 @@
-export { default } from './ExampleComponent';
+import <%=_ComponentClass%> from './<%=_ComponentClass%>';
+export default <%=_ComponentClass%>;

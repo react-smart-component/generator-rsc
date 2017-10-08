@@ -5,7 +5,8 @@
 
 const path = require('path');
 const Generator = require('yeoman-generator');
-const mkdirp = require('mkdirp');
+const glob = require('glob-promise');
+const fs = require('fs');
 
 const camelCase = (name) => {
     return name.replace(/-\w/g, function (m) {
@@ -21,7 +22,7 @@ module.exports = class extends Generator {
         this.option('version', {
             desc: 'version of package',
             type: String,
-            defaults: '0.0.1',
+            defaults: '0.0.0',
         });
 
         this.option('author', {
@@ -55,7 +56,9 @@ module.exports = class extends Generator {
             options,
         } = this;
         this.appname = appname.replace(/\s/g, '-');
-        this._componentName = `${appname.charAt(0).toUpperCase()}${camelCase(appname.slice(1))}`;
+        this._ComponentClass = `${appname.charAt(0).toUpperCase()}${camelCase(appname.slice(1))}`;
+        this._IComponentClass = `I${this._ComponentClass}`;
+        this._ComponentNativeClass = `${this._ComponentClass}Native`;
         this._packageName = options.pkgName || `rsc-${appname}`;
         this._author = options.author;
         this._repo = options.repo || `https://github.com/react-smart-component/${appname}`;
@@ -66,15 +69,17 @@ module.exports = class extends Generator {
 
     write() {
         this._write();
-        this._mkdir();
     }
 
     _write() {
         const files = [
             './src',
+            '__tests__',
+            'demos',
             'CHANGELOG.md',
             'README.md',
             'gitignore',
+            'LICENSE',
             'index.js',
             'npmrc',
             'travis.yml',
@@ -82,7 +87,9 @@ module.exports = class extends Generator {
         ];
         const {
             appname,
-            _componentName,
+            _ComponentClass,
+            _IComponentClass,
+            _ComponentNativeClass,
             _packageName,
             _author,
             _repo,
@@ -104,7 +111,9 @@ module.exports = class extends Generator {
                 this.destinationPath(newFileName),
                 {
                     appname,
-                    _componentName,
+                    _ComponentClass,
+                    _IComponentClass,
+                    _ComponentNativeClass,
                     _packageName,
                     _author,
                     _repo,
@@ -115,14 +124,21 @@ module.exports = class extends Generator {
         });
     }
 
-    _mkdir() {
-        mkdirp('__tests__');
-        mkdirp('exmaples');
-        this.log('    mkdir __tests__');
-        this.log('    mkdir exmaples');
+    _replaceTemplateFileName() {
+        const pattern = path.join(this.destinationPath(''), '**', '*Component*.tsx');
+        const filePathList = glob.sync(pattern);
+        filePathList.forEach((filePath) => {
+            const baseName = path.basename(filePath, '.tsx');
+            const dirName = path.dirname(filePath);
+            const newBaseName = baseName.replace('ComponentClass', this._ComponentClass);
+            const newFilePath = path.join(dirName, `${newBaseName}.tsx`);
+            fs.renameSync(filePath, newFilePath);
+            this.log(`   rename ${path.relative(this.destinationPath(''), newFilePath)}`);
+        });
     }
 
     end() {
+        this._replaceTemplateFileName();
         this.log('✨  done!');
         process.exit(-1);
     }

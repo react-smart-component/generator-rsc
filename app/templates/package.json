@@ -1,7 +1,15 @@
 {
     "name": "<%=_packageName%>",
     "version": "<%=_version%>",
-    "description": "A smart <%=appname%> ui component for react app",
+    "description": "A smart <%=appname%> base component for react app",
+    "scripts": {
+        "dev": "NODE_ENV=development ../../node_modules/.bin/rsc-scripts npm dev --ts",
+        "build": "NODE_ENV=production ../../node_modules/.bin/rsc-scripts npm build --ts",
+        "test": "../../node_modules/.bin/rsc-test karma --chrome --singleRun",
+        "coverage": "../../node_modules/.bin/rsc-test coverage --chrome",
+        "lint": "../../node_modules/.bin/tslint ./src",
+        "release": "../../node_modules/.bin/rsc-scripts npm release --build --ts"
+    },
     "keywords": [
         "react",
         "react-smart-component",
@@ -21,9 +29,9 @@
         "url": "<%=_repo%>.git"
     },
     "files": [
-        "lib",
-        "assets/*.css"
+        "lib"
     ],
+    "author": "chenyiqin",
     "license": "MIT",
-    "main": "./lib/index"
+    "main": "index.js"
 }

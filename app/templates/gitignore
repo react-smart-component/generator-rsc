@@ -42,3 +42,9 @@ buck-out/
 android/app/libs
 *.keystore
 
+# others
+build/
+/src/**/*.js
+yarn.lock
+/coverage
+

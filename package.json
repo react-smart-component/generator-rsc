@@ -22,6 +22,7 @@
     "component"
   ],
   "dependencies": {
+    "glob-promise": "^3.2.0",
     "yeoman-generator": "^1.1.1"
   },
   "repository": "react-smart-component/generator-rsc.git"
